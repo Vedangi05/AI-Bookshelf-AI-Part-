@@ -1,0 +1,23 @@
+python -m streamlit run ui.py
+python main.py
+
+
+Why Ollama Is Used in Your Project
+
+In my RAG chatbot:
+
+You load the PDF → split into chunks → create embeddings.
+
+When a user asks a question, you search your PDF chunks using embeddings.
+
+The most relevant chunks are combined into a prompt.
+
+Ollama generates the final answer based on this context.
+
+So Ollama is your brain:
+
+Converts context + question → human-like answer
+
+Supports natural language generation (NLG)
+
+Integrates with your safety layer to prevent harmful outputs
