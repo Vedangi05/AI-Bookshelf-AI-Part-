@@ -1,5 +1,5 @@
 import re
-import ollama
+import openai
 import config
 
 def apply_safety_layer(text):
@@ -29,17 +29,28 @@ def apply_safety_layer(text):
     return text
 
 
-def generate_safe_response(prompt, ollama_model=config.OLLAMA_MODEL):
-    """Generate response using Ollama + universal safety layer."""
+def generate_safe_response(prompt, api_model=config.API_MODEL):
+    """Generate response using OpenAI-compatible API + universal safety layer."""
 
     try:
-        response = ollama.generate(
-            model=ollama_model,
-            prompt=prompt,
-            stream=False
+        # Initialize OpenAI client with custom base URL and API key
+        client = openai.OpenAI(
+            api_key=config.API_KEY,
+            base_url=config.API_BASE_URL
         )
 
-        llm_output = response['response']
+        # Call the API with chat completions
+        response = client.chat.completions.create(
+            model=api_model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        llm_output = response.choices[0].message.content
         safe_output = apply_safety_layer(llm_output)
         return safe_output
 

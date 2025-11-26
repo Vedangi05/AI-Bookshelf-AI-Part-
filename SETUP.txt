@@ -1,0 +1,38 @@
+═════════════════════════════════════════════════════════════
+                    🚀 SETUP INSTRUCTIONS
+═════════════════════════════════════════════════════════════
+
+STEP 1: Install Dependencies
+  $ pip install -r requirements.txt
+
+STEP 2: Create PDF Reference Folder
+  $ mkdir pdf_references
+
+STEP 3: Add Your PDFs
+  $ cp /path/to/your/books/*.pdf pdf_references/
+
+STEP 4: Run the Application
+  $ python main.py
+
+That's it! The app will:
+  ✓ Load embedding model
+  ✓ Connect to Milvus
+  ✓ Auto-detect and process new PDFs
+  ✓ Skip already-processed PDFs
+  ✓ Start API server on http://localhost:5000
+
+STEP 5: Query (in another terminal)
+  $ curl -X POST http://localhost:5000/query \
+    -H "Content-Type: application/json" \
+    -d '{"query": "What is database management?"}'
+
+═════════════════════════════════════════════════════════════
+
+FILES:
+  config.py           - Configuration (already set with your Milvus credentials)
+  main.py            - Main application (run this!)
+  milvus_manager.py  - Vector database operations
+  pdf_manager.py     - PDF processing with duplicate detection
+  embedding_utils.py - Text embeddings
+
+═════════════════════════════════════════════════════════════
