@@ -1,0 +1,35 @@
+# Docker Compose for local development and testing
+
+version: '3.8'
+
+services:
+  ai-bookshelf:
+    build: .
+    container_name: ai-bookshelf-rag
+    ports:
+      - "5000:5000"
+    environment:
+      - API_KEY=${API_KEY}
+      - API_BASE_URL=${API_BASE_URL}
+      - API_MODEL=${API_MODEL}
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL}
+      - EMBEDDING_DIMENSION=${EMBEDDING_DIMENSION}
+      - MILVUS_USERNAME=${MILVUS_USERNAME}
+      - MILVUS_PASSWORD=${MILVUS_PASSWORD}
+      - MILVUS_ENDPOINT=${MILVUS_ENDPOINT}
+      - MILVUS_COLLECTION_NAME=${MILVUS_COLLECTION_NAME}
+      - MILVUS_DB_NAME=${MILVUS_DB_NAME}
+      - PDF_REFERENCE_FOLDER=${PDF_REFERENCE_FOLDER}
+      - CHUNK_SIZE=${CHUNK_SIZE}
+      - CHUNK_OVERLAP=${CHUNK_OVERLAP}
+      - FLASK_ENV=development
+    volumes:
+      - ./pdf_references:/app/pdf_references
+      - ./chroma_db:/app/chroma_db
+    restart: unless-stopped
+    networks:
+      - ai-bookshelf-network
+
+networks:
+  ai-bookshelf-network:
+    driver: bridge
