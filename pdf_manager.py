@@ -122,7 +122,7 @@ class PDFManager:
         chunks = split_text_into_chunks(
             pdf_text,
             chunk_size=config.CHUNK_SIZE,
-            chunk_overlap=config.CHUNK_OVERLAP
+            overlap=config.CHUNK_OVERLAP
         )
         
         if not chunks:

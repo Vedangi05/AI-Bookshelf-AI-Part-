@@ -36,7 +36,8 @@ def generate_safe_response(prompt, api_model=config.API_MODEL):
         # Initialize OpenAI client with custom base URL and API key
         client = openai.OpenAI(
             api_key=config.API_KEY,
-            base_url=config.API_BASE_URL
+            base_url=config.API_BASE_URL,
+            timeout=30.0
         )
 
         # Call the API with chat completions

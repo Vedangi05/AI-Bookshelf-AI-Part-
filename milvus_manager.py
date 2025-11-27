@@ -176,9 +176,9 @@ class MilvusManager:
             for hit in results[0]:
                 formatted_results.append({
                     "id": hit.id,
-                    "document": hit.entity.get("text", ""),
-                    "file_name": hit.entity.get("file_name", ""),
-                    "chunk_index": hit.entity.get("chunk_index", 0),
+                    "document": hit.entity.text,
+                    "file_name": hit.entity.file_name,
+                    "chunk_index": hit.entity.chunk_index,
                     "score": hit.distance
                 })
             
