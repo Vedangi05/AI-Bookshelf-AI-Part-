@@ -1,7 +1,11 @@
 import re
 import openai
 import config
+import os
 
+os.environ.pop("HTTP_PROXY", None)
+os.environ.pop("HTTPS_PROXY", None)
+os.environ.pop("ALL_PROXY", None)
 def apply_safety_layer(text):
     """
     Generic safety layer for *any* uploaded book.

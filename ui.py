@@ -1,9 +1,9 @@
-import streamlit as st
+
 import requests
 import os
 from pathlib import Path
 
-# Streamlit UI Configuration
+
 st.set_page_config(
     page_title="AI-Bookshelf RAG",
     layout="wide",
@@ -232,7 +232,7 @@ with st.sidebar:
     - Sentence Transformers
     - OpenAI API
     - Flask Backend
-    - Streamlit Frontend
+
     """)
     
     st.markdown("---")

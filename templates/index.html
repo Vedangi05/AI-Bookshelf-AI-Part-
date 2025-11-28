@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Bookshelf RAG</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>📚 AI-Bookshelf RAG</h1>
+            <p class="subtitle"><em>Retrieval-Augmented Generation for your personal library</em></p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" data-tab="search">🔍 Search</button>
+                <button class="tab-button" data-tab="books">📖 Books</button>
+                <button class="tab-button" data-tab="upload">⬆️ Upload</button>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content-container">
+            <!-- TAB 1: SEARCH -->
+            <div id="search-tab" class="tab-content active">
+                <h2 class="tab-header">Search Your Knowledge Base</h2>
+                
+                <!-- Chat Container -->
+                <div id="chat-container" class="chat-container">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+
+                <!-- Chat Input -->
+                <div class="chat-input-container">
+                    <input 
+                        type="text" 
+                        id="chat-input" 
+                        class="chat-input" 
+                        placeholder="Ask a question about your books..."
+                        autocomplete="off"
+                    >
+                    <button id="send-button" class="send-button">Send</button>
+                </div>
+            </div>
+
+            <!-- TAB 2: BOOKS -->
+            <div id="books-tab" class="tab-content">
+                <h2 class="tab-header">📖 Available Books</h2>
+                
+                <!-- Loading Spinner -->
+                <div id="books-loading" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Loading books...</p>
+                </div>
+
+                <!-- Statistics -->
+                <div id="books-stats" class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">📚 Total Books</div>
+                        <div class="stat-value" id="total-books">0</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">✅ Status</div>
+                        <div class="stat-value" id="status">Running</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">🔄 Last Updated</div>
+                        <div class="stat-value" id="last-updated">Now</div>
+                    </div>
+                </div>
+
+                <!-- Books List -->
+                <div id="books-list" class="books-list">
+                    <!-- Books will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- TAB 3: UPLOAD -->
+            <div id="upload-tab" class="tab-content">
+                <h2 class="tab-header">⬆️ Upload New Book</h2>
+                
+                <div class="upload-section">
+                    <div class="file-upload-container">
+                        <label for="pdf-file" class="file-label">Choose a PDF file</label>
+                        <input 
+                            type="file" 
+                            id="pdf-file" 
+                            accept="application/pdf"
+                            class="file-input"
+                        >
+                        <div id="file-info" class="file-info" style="display: none;">
+                            <p><strong>Selected file:</strong> <span id="file-name"></span></p>
+                            <p><strong>File size:</strong> <span id="file-size"></span> KB</p>
+                        </div>
+                    </div>
+
+                    <button id="upload-button" class="upload-button" disabled>
+                        📤 Upload and Process
+                    </button>
+
+                    <!-- Upload Messages -->
+                    <div id="upload-message" class="upload-message" style="display: none;"></div>
+                </div>
+
+                <!-- Info Section -->
+                <details class="info-expander">
+                    <summary>ℹ️ Upload Information</summary>
+                    <div class="info-content">
+                        <ul>
+                            <li><strong>Supported Format:</strong> PDF only</li>
+                            <li><strong>Processing:</strong> Automatic chunking and embedding</li>
+                            <li><strong>Storage:</strong> Files saved to knowledge base</li>
+                            <li><strong>Search:</strong> Available immediately after upload</li>
+                        </ul>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-divider"></div>
+            
+            <h3 class="sidebar-title">⚙️ Settings</h3>
+            
+            <!-- API Status -->
+            <div id="api-status" class="api-status">
+                <div class="status-indicator"></div>
+                <span id="api-status-text">Checking...</span>
+            </div>
+            
+            <p class="api-endpoint"><strong>API:</strong> <span id="api-url"></span></p>
+            
+            <div class="sidebar-divider"></div>
+            
+            <h3 class="sidebar-subtitle">About AI-Bookshelf</h3>
+            <p class="sidebar-text">A Retrieval-Augmented Generation (RAG) system for:</p>
+            <ul class="sidebar-list">
+                <li>📚 Managing your personal book collection</li>
+                <li>🔍 Intelligent search across documents</li>
+                <li>💡 AI-powered responses with sources</li>
+            </ul>
+            
+            <p class="sidebar-text"><strong>Tech Stack:</strong></p>
+            <ul class="sidebar-list">
+                <li>Milvus Vector DB</li>
+                <li>Sentence Transformers</li>
+                <li>OpenAI API</li>
+                <li>Flask Backend</li>
+            </ul>
+            
+            <div class="sidebar-divider"></div>
+            
+            <p class="sidebar-caption">AI-Bookshelf RAG v1.0 | November 2025</p>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

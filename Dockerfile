@@ -1,32 +1,29 @@
 FROM python:3.10-slim
 
-# Set working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
-COPY requirements.txt .
+COPY requirements-hf.txt .
 
-# Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir \
+    --prefer-binary \
+    --default-timeout=15000 \
+    --retries 10 \
+    -r requirements-hf.txt
 
-# Copy application code
 COPY . .
 
-# Create directories if they don't exist
 RUN mkdir -p pdf_references chroma_db
+RUN chmod +x /app/start.sh
 
-# Expose port
-EXPOSE 5000
+EXPOSE 7860
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:5000/status || exit 1
+HEALTHCHECK --interval=60s --timeout=10s --start-period=180s --retries=5 \
+    CMD curl -f http://localhost:7860/healthz || exit 1
 
-# Run the application
-CMD ["python", "main.py"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:7860", "main:app"]
