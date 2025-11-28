@@ -1,0 +1,6 @@
+2025-11-27 20:48:00,614 INFO sentence_transformers.SentenceTransformer Use pytorch device_name: cpu
+2025-11-27 20:48:00,614 INFO sentence_transformers.SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-11-27 20:48:04,635 INFO sentence_transformers.SentenceTransformer Use pytorch device_name: cpu
+2025-11-27 20:48:04,636 INFO sentence_transformers.SentenceTransformer Load pretrained SentenceTransformer: all-mpnet-base-v2
+2025-11-27 20:48:08,685 INFO waitress Serving on http://[::]:5000
+2025-11-27 20:48:08,685 INFO waitress Serving on http://0.0.0.0:5000

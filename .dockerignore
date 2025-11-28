@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment variables (don't include actual .env)
+.env.local
+.env.*.local
+
+# Git
+.git/
+.gitignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database files (optional, depends on your setup)
+*.db
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# Chroma DB and PDFs (optional, include if needed for production)
+chroma_db/
+pdf_references/
+
+# Docker
+.dockerignore
+docker-compose.yml

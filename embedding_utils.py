@@ -1,45 +1,41 @@
 from sentence_transformers import SentenceTransformer
 import config
+import threading
+
+# -------------------------------------------------------------
+# GLOBAL SHARED SENTENCE TRANSFORMER MODEL
+# -------------------------------------------------------------
+# Load ONCE at import (guaranteed to be safe with HF Spaces)
+# -------------------------------------------------------------
+_MODEL = None
+_MODEL_LOCK = threading.Lock()
+
+def _load_global_model():
+    global _MODEL
+    with _MODEL_LOCK:
+        if _MODEL is None:
+            print(f"🔥 Loading embedding model: {config.EMBEDDING_MODEL}")
+            _MODEL = SentenceTransformer(config.EMBEDDING_MODEL)
+            print("✓ Embedding model loaded")
+    return _MODEL
 
 
 class EmbeddingManager:
-    """Manages text embeddings using SentenceTransformer model."""
+    """Thin wrapper around global SentenceTransformer model"""
     
-    def __init__(self, embedding_model_name=config.EMBEDDING_MODEL):
-        """Initialize the embedding model."""
-        self.embedding_model = SentenceTransformer(embedding_model_name)
-        print(f"✓ Loaded embedding model: {embedding_model_name}")
+    def __init__(self):
+        self.embedding_model = _load_global_model()
 
     def embed_text(self, text):
-        """
-        Embed a single piece of text into a vector.
-        
-        Args:
-            text: Text to embed
-            
-        Returns:
-            Numpy array representing the embedding
-        """
         try:
-            embedding = self.embedding_model.encode(text, convert_to_numpy=True)
-            return embedding
+            return self.embedding_model.encode(text, convert_to_numpy=True)
         except Exception as e:
             print(f"✗ Error embedding text: {e}")
             return None
 
     def embed_multiple(self, texts):
-        """
-        Embed multiple texts efficiently.
-        
-        Args:
-            texts: List of texts to embed
-            
-        Returns:
-            List of numpy arrays representing embeddings
-        """
         try:
-            embeddings = self.embedding_model.encode(texts, convert_to_numpy=True)
-            return embeddings
+            return self.embedding_model.encode(texts, convert_to_numpy=True)
         except Exception as e:
             print(f"✗ Error embedding multiple texts: {e}")
             return None
